@@ -29,28 +29,36 @@ const Footer = () => {
 
             <div className="flex items-center gap-4 mt-6">
               <a
-                href="#"
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-slate-800 hover:bg-[#22C55E] p-3 rounded-full transition-all duration-300"
               >
                 <FaFacebookF size={18} />
               </a>
 
               <a
-                href="#"
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-slate-800 hover:bg-[#22C55E] p-3 rounded-full transition-all duration-300"
               >
                 <FaTwitter size={18} />
               </a>
 
               <a
-                href="#"
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-slate-800 hover:bg-[#22C55E] p-3 rounded-full transition-all duration-300"
               >
                 <FaInstagramSquare size={18} />
               </a>
 
               <a
-                href="#"
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-slate-800 hover:bg-[#22C55E] p-3 rounded-full transition-all duration-300"
               >
                 <FaLinkedinIn size={18} />

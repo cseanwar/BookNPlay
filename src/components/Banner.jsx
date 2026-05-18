@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const images = [
   "/Banner1.jpg",
   "/banner-football.jpg",
+  "/banner-cricket.jpg",
   "/banner-badminton.jpg",
   "/banner-swimming.webp",
   "/banner-tenis.webp",
