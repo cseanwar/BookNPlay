@@ -24,7 +24,6 @@ const Banner = () => {
 
   return (
     <section className="relative h-[90vh] overflow-hidden">
-
       {/* Background Images */}
       {images.map((image, index) => (
         <div
@@ -49,11 +48,11 @@ const Banner = () => {
           </h1>
 
           <p className="mt-6 text-gray-200 text-lg max-w-2xl mx-auto">
-            Explore football turfs, badminton courts, swimming lanes,
-            tennis courts and more.
+            Explore football turfs, badminton courts, swimming lanes, tennis
+            courts and more.
           </p>
 
-          <button className="mt-10 bg-[#22C55E] hover:bg-[#16A34A] text-[#FFFFFF] px-8 py-3 rounded-sm text-lg font-medium transition">
+          <button className="mt-10 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
             Explore Facilities
           </button>
         </div>

@@ -10,19 +10,18 @@ import { Button } from "@heroui/react";
 // import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-//   const { data: session } = authClient.useSession();
-//   const user = session?.user;
-//   const [menuOpen, setMenuOpen] = useState(false);
+  //   const { data: session } = authClient.useSession();
+  //   const user = session?.user;
+  //   const [menuOpen, setMenuOpen] = useState(false);
 
-//   const handleSignOut = async () => {
-//     await authClient.signOut();
-//     setMenuOpen(false);
-//   };
+  //   const handleSignOut = async () => {
+  //     await authClient.signOut();
+  //     setMenuOpen(false);
+  //   };
 
   return (
     <div className="bg-[#F8FAFC] py-2 shadow-sm relative z-50">
       <nav className="flex items-center justify-between container mx-auto px-4 lg:px-0">
-
         <Link href="/">
           <Image
             src={"/logo.png"}
@@ -39,7 +38,7 @@ const Navbar = () => {
             <NavLink href={"/"}>Home</NavLink>
           </li>
           <li>
-            <NavLink href={"/all-facilities"}>All Facilities</NavLink>
+            <NavLink href={"/facility"}>All Facilities</NavLink>
           </li>
           <li>
             <NavLink href={"/my-bookings"}>My Bookings</NavLink>
@@ -48,15 +47,17 @@ const Navbar = () => {
             <NavLink href={"/add-facility"}>Add Facility</NavLink>
           </li>
           <li>
-            <NavLink href={"/manage-my-facilities"}>Manage My Facilities</NavLink>
+            <NavLink href={"/manage-my-facilities"}>
+              Manage My Facilities
+            </NavLink>
           </li>
         </ul>
 
         {/* Desktop right section */}
         <ul className="hidden lg:flex items-center gap-6">
           {/* {user ? ( */}
-            {/* <> */}
-              {/* <li>
+          {/* <> */}
+          {/* <li>
                 <Avatar>
                   <Avatar.Image
                     referrerPolicy="no-referrer"
@@ -78,14 +79,14 @@ const Navbar = () => {
             </>
           ) : (
             <> */}
-              <li>
-                <NavLink href={"/login"}>
-                <Button variant="tertiary" className="rounded-sm bg-[#22C55E] hover:bg-[#16A34A] text-[#FFFFFF] px-8 py-3 text-lg font-medium">
-                    Login
-                </Button>
-                </NavLink>
-              </li>
-            {/* </>
+          <li>
+            <NavLink href={"/login"}>
+              <button className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-[#FFFFFF] px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
+                Login
+              </button>
+            </NavLink>
+          </li>
+          {/* </>
           )} */}
         </ul>
 
