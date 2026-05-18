@@ -1,0 +1,65 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+const images = [
+  "/Banner1.jpg",
+  "/banner-football.jpg",
+  "/banner-badminton.jpg",
+  "/banner-swimming.webp",
+  "/banner-tenis.webp",
+  "/banner-table-tenis.webp",
+];
+
+const Banner = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="relative h-[90vh] overflow-hidden">
+
+      {/* Background Images */}
+      {images.map((image, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ${
+            index === currentImage ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${image})`,
+          }}
+        />
+      ))}
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50 z-10" />
+
+      {/* Hero Content */}
+      <div className="relative z-20 h-full flex items-center justify-center text-center px-4">
+        <div>
+          <h1 className="text-4xl md:text-6xl font-bold text-[#FFFFFF]">
+            Book Your Favorite Sports Facilities
+          </h1>
+
+          <p className="mt-6 text-gray-200 text-lg max-w-2xl mx-auto">
+            Explore football turfs, badminton courts, swimming lanes,
+            tennis courts and more.
+          </p>
+
+          <button className="mt-10 bg-[#22C55E] hover:bg-[#16A34A] text-[#FFFFFF] px-8 py-3 rounded-sm text-lg font-medium transition">
+            Explore Facilities
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Banner;

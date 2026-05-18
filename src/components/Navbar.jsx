@@ -20,8 +20,8 @@ const Navbar = () => {
 //   };
 
   return (
-    <div className="bg-[#F8FAFC] shadow-sm relative z-50">
-      <nav className="h-15 flex items-center justify-between container mx-auto px-4 lg:px-0">
+    <div className="bg-[#F8FAFC] py-2 shadow-sm relative z-50">
+      <nav className="flex items-center justify-between container mx-auto px-4 lg:px-0">
 
         <Link href="/">
           <Image
@@ -80,7 +80,7 @@ const Navbar = () => {
             <> */}
               <li>
                 <NavLink href={"/login"}>
-                <Button variant="tertiary" className="rounded-sm bg-[#22C55E] text-[#334155] px-6 py-2 font-semibold">
+                <Button variant="tertiary" className="rounded-sm bg-[#22C55E] hover:bg-[#16A34A] text-[#FFFFFF] px-8 py-3 text-lg font-medium">
                     Login
                 </Button>
                 </NavLink>
