@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import PopularSportsCategories from "@/components/PopularSportsCategories";
+import WhyChooseBookNPlay from "@/components/WhyChooseBookNPlay";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Banner />
       <PopularSportsCategories />
       Homepage
+      <WhyChooseBookNPlay />
     </div>
   );
 }
