@@ -1,3 +1,5 @@
+"use client"
+
 import {
   FieldError,
   Input,
@@ -13,6 +15,24 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { LiaSaveSolid } from "react-icons/lia";
 
 const AddFacility = () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const facility = Object.fromEntries(formData.entries());
+    console.log(facility);
+
+    const res = await fetch('http://localhost:5000/facilities', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(facility)
+    })
+
+    const data = await res.json()
+    console.log(data);
+  };
+
   return (
     <div className="w-full max-w-[100vw] overflow-x-hidden px-4 sm:px-6 md:px-10 lg:px-16 xl:max-w-7xl xl:mx-auto py-10 md:py-16 lg:py-20">
       <h1 className="text-[#0C0B0B] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold pb-6 md:pb-10 wrap-break-word">
@@ -22,6 +42,7 @@ const AddFacility = () => {
       {/* Replace Card with plain div to avoid HeroUI fixed widths */}
       <div className="w-full border border-gray-200 shadow-sm overflow-hidden">
         <form
+          onSubmit={onSubmit}
           className="p-5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 w-full"
           style={{ width: "100%" }}
         >
@@ -48,7 +69,7 @@ const AddFacility = () => {
             {/* Facility Type */}
             <div className="col-span-1 w-full">
               <Select
-                name="facilityType"
+                name="facility_type"
                 isRequired
                 style={{ width: "100%" }}
                 placeholder="Select a facility"
@@ -128,7 +149,7 @@ const AddFacility = () => {
             {/* Price per hour */}
             <div className="col-span-1 w-full">
               <TextField
-                name="price"
+                name="price_per_hour"
                 type="number"
                 isRequired
                 style={{ width: "100%" }}
@@ -164,8 +185,8 @@ const AddFacility = () => {
             {/* Available time slots */}
             <div className="col-span-1 w-full">
               <TextField
-                name="availableTimeSlots"
-                type="date"
+                name="available_slots"
+                type="time"
                 isRequired
                 style={{ width: "100%" }}
               >
@@ -174,7 +195,7 @@ const AddFacility = () => {
                 </Label>
                 <Input
                   placeholder="e.g., 8:00 PM - 9:00 PM"
-                  type="date"
+                  type="text"
                   className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
                   style={{ width: "100%", minWidth: "0" }}
                 />
