@@ -9,9 +9,9 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0F172A] text-[#F8FAFC] pt-20 pb-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 border-b border-slate-700 pb-16">
+    <footer className="bg-[#0F172A] text-[#F8FAFC] pt-20 pb-8">
+      <div className="max-w-7xl mx-auto  px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-16">
           <div className="lg:col-span-2">
             <Image
               src="/logo-footer.png"
@@ -136,20 +136,33 @@ const Footer = () => {
               Subscribe to receive updates, offers and sports inspiration.
             </p>
 
-            <div className="flex items-center bg-slate-800 rounded-xl overflow-hidden border border-slate-700">
+            <div className="flex items-center bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden w-full">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 bg-transparent px-5 py-4 text-sm text-white placeholder:text-slate-400 outline-none"
+              />
+
+              <button className="w-16 h-16 flex items-center justify-center bg-[#22C55E] hover:bg-[#16A34A] transition-all duration-300">
+                <span className="text-white text-xl">→</span>
+              </button>
+            </div>
+
+            {/* <div className="flex items-center bg-slate-800 rounded-xl border border-slate-700">
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="bg-transparent px-4 py-3 outline-none flex-1 text-sm"
               />
 
-              <button className="bg-[#22C55E] hover:bg-[#16A34A] px-5 py-3 transition">
+              <button className="bg-[#22C55E] hover:bg-[#16A34A] px-5 h-full rounded-r-xl transition flex items-center justify-center">
                 →
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
-
+      </div>
+      <div className="border-t border-slate-700">
         <p className="pt-6 text-center text-sm text-slate-400">
           © 2026 BookNPlay. All rights reserved.
         </p>

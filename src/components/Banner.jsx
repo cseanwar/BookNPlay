@@ -24,12 +24,11 @@ const Banner = () => {
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Background Images */}
+    <section className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] overflow-hidden">
       {images.map((image, index) => (
         <div
           key={index}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ${
+          className={`absolute inset-0 bg-cover bg-bottom transition-opacity duration-2000 ${
             index === currentImage ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -41,19 +40,18 @@ const Banner = () => {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50 z-10" />
 
-      {/* Hero Content */}
       <div className="relative z-20 h-full flex items-center justify-center text-center px-4">
         <div>
-          <h1 className="text-4xl md:text-6xl font-bold text-[#FFFFFF]">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#FFFFFF] leading-tight">
             Book Your Favorite Sports Facilities
           </h1>
 
-          <p className="mt-6 text-gray-200 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-200 text-lg max-w-2xl mx-auto">
             Explore football turfs, badminton courts, swimming lanes, tennis
             courts and more.
           </p>
 
-          <button className="mt-10 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
+          <button className="mt-12 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
             Explore Facilities
           </button>
         </div>
