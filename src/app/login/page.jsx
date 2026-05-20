@@ -37,9 +37,12 @@ const LoginPage = () => {
     }
   };
 
-  const handleGoogleSignin = async () => {
-    await authClient.signIn.social({ provider: "google" });
-  };
+    const handleGoogleLogin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+
+    }
 
   return (
     <div className="w-full flex flex-col items-center justify-center bg-white py-10 px-4">
@@ -149,7 +152,7 @@ const LoginPage = () => {
 
         {/* Google button */}
         <Button
-          onClick={handleGoogleSignin}
+          onClick={handleGoogleLogin}
           variant="outline"
           className="w-full rounded-none py-5 font-semibold text-base md:text-lg mb-5"
           style={{ width: "100%" }}

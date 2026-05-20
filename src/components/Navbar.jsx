@@ -24,7 +24,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -126,7 +125,7 @@ const Navbar = () => {
                   <div className="border-t border-gray-100 mt-2 pt-2 px-2">
                     <button
                       onClick={handleSignOut}
-                      className="w-full text-left px-2 py-2 text-base font-semibold text-red-500 hover:bg-green-50 rounded-lg"
+                      className="w-full text-left px-2 py-2 text-base font-semibold text-red-500 hover:bg-green-50 rounded-lg cursor-pointer"
                     >
                       Logout
                     </button>
@@ -136,16 +135,16 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <NavLink href="/login">
+              <Link href="/login">
                 <button className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
                   Login
                 </button>
-              </NavLink>
-              <NavLink href="/register">
+              </Link>
+              <Link href="/register">
                 <button className="bg-[#1E293B] text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
                   Register
                 </button>
-              </NavLink>
+              </Link>
             </div>
           )}
         </div>
@@ -211,7 +210,7 @@ const Navbar = () => {
                 </div>
                 <button
                   onClick={handleSignOut}
-                  className="text-left text-sm text-red-500 hover:text-red-600 font-medium"
+                  className="text-left text-sm text-red-500 hover:text-red-600 font-medium cursor-pointer"
                 >
                   Logout
                 </button>
