@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   FieldError,
@@ -10,238 +10,271 @@ import {
   TextArea,
   Button,
 } from "@heroui/react";
-import React from "react";
+
+
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LiaSaveSolid } from "react-icons/lia";
+
+import {
+  PiImageBold,
+  PiMapPinBold,
+  PiCurrencyCircleDollarBold,
+  PiUsersBold,
+  PiClockBold,
+  PiNotePencilBold,
+  PiBuildingsBold,
+} from "react-icons/pi";
+import { TbCategory } from "react-icons/tb";
 
 const AddFacility = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
     const facility = Object.fromEntries(formData.entries());
+
     console.log(facility);
 
-    const res = await fetch('http://localhost:5000/facilities', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(facility)
-    })
+    const res = await fetch("http://localhost:5000/facilities", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(facility),
+    });
 
-    const data = await res.json()
+    const data = await res.json();
+
     console.log(data);
   };
 
   return (
-    <div className="w-full max-w-[100vw] overflow-x-hidden px-4 sm:px-6 md:px-10 lg:px-16 xl:max-w-7xl xl:mx-auto py-10 md:py-16 lg:py-20">
-      <h1 className="text-[#0C0B0B] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold pb-6 md:pb-10 wrap-break-word">
-        Add a New Facility
-      </h1>
+    <section className="bg-[#F8FAFC] min-h-screen py-16 lg:py-20 px-4">
+      <div className="max-w-6xl mx-auto">
 
-      {/* Replace Card with plain div to avoid HeroUI fixed widths */}
-      <div className="w-full border border-gray-200 shadow-sm overflow-hidden">
-        <form
-          onSubmit={onSubmit}
-          className="p-5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 w-full"
-          style={{ width: "100%" }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-            {/* Facility Name */}
-            <div className="col-span-1 w-full">
-              <TextField
-                name="facilityName"
-                isRequired
-                style={{ width: "100%" }}
-              >
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Facility Name
-                </Label>
-                <Input
-                  placeholder="e.g., Lords cricket ground"
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
-            </div>
+        {/* Header */}
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-[#22C55E]/10 text-[#16A34A] px-5 py-2 rounded-full text-sm font-semibold mb-5">
+            <PiBuildingsBold className="text-lg" />
+            Add New Sports Facility
+          </div>
 
-            {/* Facility Type */}
-            <div className="col-span-1 w-full">
-              <Select
-                name="facility_type"
-                isRequired
-                style={{ width: "100%" }}
-                placeholder="Select a facility"
-              >
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Facility Type
-                </Label>
-                <Select.Trigger
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+            Create Your Facility
+          </h1>
+
+          <p className="mt-5 text-[#64748B] text-lg max-w-2xl mx-auto leading-relaxed">
+            Add your sports venue and let players discover and book it easily
+            through BookNPlay.
+          </p>
+        </div>
+
+        {/* Form Card */}
+        <div className="bg-white rounded-[32px] border border-slate-200 shadow-xl overflow-hidden">
+
+          {/* Top Gradient */}
+          <div className="h-2 bg-linear-to-r from-[#22C55E] to-[#16A34A]" />
+
+          <form
+            onSubmit={onSubmit}
+            className="p-6 md:p-10 lg:p-12"
+          >
+
+            {/* Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+              {/* Facility Name */}
+              <div>
+                <TextField name="facilityName" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiBuildingsBold className="text-[#22C55E]" />
+                    Facility Name
+                  </Label>
+
+                  <Input
+                    placeholder="e.g., BookNPlay Football Arena"
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
+
+              {/* Facility Type */}
+              <div>
+                <Select
+                  name="facility_type"
+                  isRequired
+                  placeholder="Select Sport type"
                 >
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox>
-                    <ListBox.Item id="Football" textValue="Football">
-                      Football
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                    <ListBox.Item id="Cricket" textValue="Cricket">
-                      Cricket
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                    <ListBox.Item id="Badminton" textValue="Badminton">
-                      Badminton
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                    <ListBox.Item id="Swimming" textValue="Swimming">
-                      Swimming
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                    <ListBox.Item id="Tennis" textValue="Tennis">
-                      Tennis
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                    <ListBox.Item id="Table Tennis" textValue="Table Tennis">
-                      Table Tennis
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                  </ListBox>
-                </Select.Popover>
-              </Select>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <TbCategory className="text-[#22C55E]" />
+                    Sport Type
+                  </Label>
+
+                  <Select.Trigger className="rounded-2xl bg-[#F8FAFC] border border-slate-200">
+                    <Select.Value />
+                    <Select.Indicator />
+                  </Select.Trigger>
+
+                  <Select.Popover>
+                    <ListBox>
+                      <ListBox.Item id="Football" textValue="Football">
+                        Football
+                      </ListBox.Item>
+
+                      <ListBox.Item id="Cricket" textValue="Cricket">
+                        Cricket
+                      </ListBox.Item>
+
+                      <ListBox.Item id="Badminton" textValue="Badminton">
+                        Badminton
+                      </ListBox.Item>
+
+                      <ListBox.Item id="Swimming" textValue="Swimming">
+                        Swimming
+                      </ListBox.Item>
+
+                      <ListBox.Item id="Tennis" textValue="Tennis">
+                        Tennis
+                      </ListBox.Item>
+
+                      <ListBox.Item id="Basketball" textValue="Basketball">
+                        Basketball
+                      </ListBox.Item>
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+              </div>
+
+              {/* Image URL */}
+              <div className="md:col-span-2">
+                <TextField name="imageUrl" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiImageBold className="text-[#22C55E]" />
+                    Facility Image URL
+                  </Label>
+
+                  <Input
+                    type="url"
+                    placeholder="https://example.com/facility.jpg"
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
+
+              {/* Location */}
+              <div>
+                <TextField name="location" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiMapPinBold className="text-[#22C55E]" />
+                    Location
+                  </Label>
+
+                  <Input
+                    placeholder="e.g., Dhaka, Bangladesh"
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
+
+              {/* Price */}
+              <div>
+                <TextField name="price_per_hour" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiCurrencyCircleDollarBold className="text-[#22C55E]" />
+                    Price Per Hour
+                  </Label>
+
+                  <Input
+                    type="number"
+                    placeholder="e.g., 1500"
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
+
+              {/* Capacity */}
+              <div>
+                <TextField name="capacity" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiUsersBold className="text-[#22C55E]" />
+                    Capacity
+                  </Label>
+
+                  <Input
+                    placeholder="e.g., 22 Players"
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
+
+              {/* Time Slots */}
+              <div>
+                <TextField name="available_slots" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiClockBold className="text-[#22C55E]" />
+                    Available Slots
+                  </Label>
+
+                  <Input
+                    placeholder="e.g., 8 AM - 10 PM"
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
+
+              {/* Description */}
+              <div className="md:col-span-2">
+                <TextField name="description" isRequired>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiNotePencilBold className="text-[#22C55E]" />
+                    Description
+                  </Label>
+
+                  <TextArea
+                    placeholder="Describe your sports facility..."
+                    className="rounded-2xl bg-[#F8FAFC] border border-slate-200 min-h-36"
+                  />
+
+                  <FieldError />
+                </TextField>
+              </div>
             </div>
 
-            {/* Image URL */}
-            <div className="col-span-1 md:col-span-2 w-full">
-              <TextField name="imageUrl" isRequired style={{ width: "100%" }}>
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Image URL
-                </Label>
-                <Input
-                  type="url"
-                  placeholder="e.g., https://example.com/image.jpg"
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
-            </div>
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row justify-end gap-4 mt-12">
 
-            {/* Location */}
-            <div className="col-span-1 w-full">
-              <TextField name="location" isRequired style={{ width: "100%" }}>
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Location
-                </Label>
-                <Input
-                  placeholder="e.g., Motijheel, Dhaka"
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
-            </div>
-
-            {/* Price per hour */}
-            <div className="col-span-1 w-full">
-              <TextField
-                name="price_per_hour"
-                type="number"
-                isRequired
-                style={{ width: "100%" }}
+              <Button
+                type="button"
+                className="border border-red-400 bg-white text-red-500 hover:bg-red-50 rounded-xl px-6 py-6 text-base font-semibold"
               >
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Price per hour(BDT)
-                </Label>
-                <Input
-                  type="number"
-                  placeholder="e.g., 299"
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
-            </div>
+                <FaRegTrashAlt />
+                Cancel
+              </Button>
 
-            {/* Capacity */}
-            <div className="col-span-1 w-full">
-              <TextField name="capacity" isRequired style={{ width: "100%" }}>
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Capacity
-                </Label>
-                <Input
-                  placeholder="e.g., 22"
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
-            </div>
-
-            {/* Available time slots */}
-            <div className="col-span-1 w-full">
-              <TextField
-                name="available_slots"
-                type="time"
-                isRequired
-                style={{ width: "100%" }}
+              <Button
+                type="submit"
+                className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white rounded-xl px-8 py-6 text-base font-semibold shadow-xl hover:scale-[1.02] transition-all duration-300"
               >
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium uppercase">
-                  Available Time Slots
-                </Label>
-                <Input
-                  placeholder="e.g., 8:00 PM - 9:00 PM"
-                  type="text"
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
+                <LiaSaveSolid className="text-xl" />
+                Add Facility
+              </Button>
             </div>
-
-            {/* Description */}
-            <div className="col-span-1 md:col-span-2 w-full">
-              <TextField
-                name="description"
-                isRequired
-                style={{ width: "100%" }}
-              >
-                <Label className="text-[#0C0B0B] text-base md:text-lg font-medium">
-                  Description
-                </Label>
-                <TextArea
-                  placeholder="Describe the travel experience..."
-                  className="bg-[#F8FAFC] text-[#6C696D] rounded-sm min-h-32"
-                  style={{ width: "100%", minWidth: "0" }}
-                />
-                <FieldError />
-              </TextField>
-            </div>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row justify-end gap-3 pt-2">
-            <Button
-              type="button"
-              variant="danger"
-              className="bg-white text-[#EF4444] border-2 border-[#EF4444] text-sm rounded-xl font-medium"
-            >
-              <FaRegTrashAlt /> Cancel
-            </Button>
-            <Button
-              type="submit"
-              className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg hover:scale-105"
-            >
-              <LiaSaveSolid /> Add Facility
-            </Button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

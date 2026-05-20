@@ -45,7 +45,7 @@ const FacilityCard = ({ facility }) => {
         {/* Price Badge */}
         <div className="absolute top-4 right-4">
           <span className="bg-white/90 backdrop-blur-md text-[#0F172A] text-sm font-bold px-4 py-2 rounded-full shadow-lg">
-            ৳ {price_per_hour}/hr
+            ৳ {price_per_hour}/slot
           </span>
         </div>
       </div>

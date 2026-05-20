@@ -2,8 +2,10 @@ import FacilityCard from "@/components/FacilityCard";
 import React from "react";
 
 const AllFacilitiesPage = async () => {
+    
   const res = await fetch("http://localhost:5000/facilities");
   const facilities = await res.json();
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 lg:py-20">
       {/* Header */}
