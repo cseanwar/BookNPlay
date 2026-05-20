@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const images = [
@@ -51,9 +52,11 @@ const Banner = () => {
             courts and more.
           </p>
 
-          <button className="mt-12 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
-            Explore Facilities
-          </button>
+          <Link href={'/facilities'}>
+            <button className="mt-12 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
+              Explore Facilities
+            </button>
+          </Link>
         </div>
       </div>
     </section>

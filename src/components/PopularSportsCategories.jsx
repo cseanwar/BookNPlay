@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Marquee from "react-fast-marquee";
 
 const categories = [
@@ -68,9 +69,11 @@ const PopularSportsCategories = () => {
                   {category.title}
                 </h3>
 
-                <button className="mt-4 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg hover:scale-105">
+                <Link href={'/facilities'}>
+                  <button className="mt-4 bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 shadow-lg hover:scale-105">
                   Explore Now
                 </button>
+                </Link>
               </div>
             </div>
           ))}
