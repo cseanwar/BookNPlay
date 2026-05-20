@@ -54,7 +54,7 @@ const Navbar = () => {
         </ul>
 
         {/* Desktop right section */}
-        <ul className="hidden lg:flex items-center gap-6">
+        <ul className="hidden lg:flex items-center gap-2">
           {/* {user ? ( */}
           {/* <> */}
           {/* <li>
@@ -83,6 +83,13 @@ const Navbar = () => {
             <NavLink href={"/login"}>
               <button className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-[#FFFFFF] px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
                 Login
+              </button>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink href={"/register"}>
+              <button className="bg-[#1E293B] text-[#FFFFFF] px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300">
+                Register
               </button>
             </NavLink>
           </li>
