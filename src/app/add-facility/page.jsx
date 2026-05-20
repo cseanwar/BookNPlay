@@ -86,27 +86,27 @@ const AddFacility = () => {
                 </Select.Trigger>
                 <Select.Popover>
                   <ListBox>
-                    <ListBox.Item id="Beach" textValue="Beach">
+                    <ListBox.Item id="Football" textValue="Football">
                       Football
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="Mountain" textValue="Mountain">
-                      cricket
+                    <ListBox.Item id="Cricket" textValue="Cricket">
+                      Cricket
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="City" textValue="City">
+                    <ListBox.Item id="Badminton" textValue="Badminton">
                       Badminton
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="Adventure" textValue="Adventure">
+                    <ListBox.Item id="Swimming" textValue="Swimming">
                       Swimming
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="Cultural" textValue="Cultural">
+                    <ListBox.Item id="Tennis" textValue="Tennis">
                       Tennis
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="Luxury" textValue="Luxury">
+                    <ListBox.Item id="Table Tennis" textValue="Table Tennis">
                       Table Tennis
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
