@@ -26,7 +26,7 @@ export function DeleteFacility({ facility }) {
     <AlertDialog>
       {/* Trigger button */}
       <Button
-        className="text-[#EF4444] border-[#EF4444] rounded-none text-sm md:text-base"
+        className="text-[#EF4444] border-[#EF4444] rounded-xl text-sm md:text-base"
         variant="outline"
       >
         <BsTrash3 /> Delete

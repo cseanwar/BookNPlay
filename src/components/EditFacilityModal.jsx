@@ -67,7 +67,7 @@ export function EditFacilityModal({ facility }) {
     <Modal>
       <Button
         variant="outline"
-        className="rounded-none text-[#0C0B0B] text-sm md:text-base"
+        className="rounded-xl text-[#0C0B0B] text-sm md:text-base"
       >
         <RiEdit2Line /> Edit
       </Button>

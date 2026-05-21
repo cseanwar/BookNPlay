@@ -29,7 +29,7 @@ const NotFoundPage = () => {
         </div>
 
         {/* 404 */}
-        <h1 className="text-[110px] md:text-[180px] leading-none font-black bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-2xl">
+        <h1 className="text-[110px] md:text-[180px] leading-none font-black bg-linear-to-r from-green-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-2xl">
           404
         </h1>
 
@@ -48,7 +48,7 @@ const NotFoundPage = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
           {/* Home */}
           <Link href="/">
-            <button className="group flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 transition-all duration-300 px-8 py-4 rounded-2xl font-semibold text-lg shadow-2xl hover:scale-105">
+            <button className="group flex items-center gap-2 bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 transition-all duration-300 px-8 py-4 rounded-2xl font-semibold text-lg shadow-2xl hover:scale-105">
               <Home className="w-5 h-5 group-hover:rotate-6 transition-transform" />
               Back Home
             </button>

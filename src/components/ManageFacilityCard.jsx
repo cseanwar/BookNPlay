@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { MapPin, Pencil, Trash2, Users } from "lucide-react";
+import { EditFacilityModal } from "./EditFacilityModal";
+import { DeleteFacility } from "./DeleteFacility";
 
 const ManageFacilityCard = ({ facility }) => {
   const {
@@ -25,7 +27,7 @@ const ManageFacilityCard = ({ facility }) => {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent z-10" />
 
         {/* Badge */}
         <div className="absolute top-5 left-5 z-20">
@@ -60,16 +62,17 @@ const ManageFacilityCard = ({ facility }) => {
       </div>
 
       {/* ACTIONS */}
+      {/* ACTIONS */}
       <div className="p-5 flex gap-4">
-        <button className="flex-1 h-12 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:bg-emerald-50 transition-all duration-300 font-semibold flex items-center justify-center gap-2">
-          <Pencil size={18} />
-          Edit
-        </button>
+        {/* EDIT */}
+        <div className="flex-1">
+          <EditFacilityModal facility={facility} />
+        </div>
 
-        <button className="flex-1 h-12 rounded-2xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 font-semibold flex items-center justify-center gap-2">
-          <Trash2 size={18} />
-          Delete
-        </button>
+        {/* DELETE */}
+        <div className="flex-1">
+          <DeleteFacility facility={facility} />
+        </div>
       </div>
     </div>
   );
