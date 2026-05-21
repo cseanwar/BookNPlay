@@ -3,10 +3,12 @@ import { BiArrowBack } from "react-icons/bi";
 import { LuMapPin, LuUsers } from "react-icons/lu";
 import { PiTagBold } from "react-icons/pi";
 import BookingCard from "@/components/BookingCard";
+// import { headers } from "next/headers";
+// import { auth } from "@/lib/auth";
 
 const FacilityDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:5000/facilities/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch facility");

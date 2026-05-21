@@ -1,35 +1,35 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
+import { Trash2 } from "lucide-react";
+// import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
-import { redirect } from "next/navigation";
-import { BsTrash3 } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-export function DeleteFacility({ facility }) {
-  const { _id, facilityName } = facility;
+export function BookingCancelAlert({ bookingId }) {
+  const handleCancelBooking = async () => {
+    // const { data } = await authClient.token();
 
-  const handleDelete = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}`,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${bookingId}`,
       {
         method: "DELETE",
-        headers: { "content-type": "application/json" },
-        // credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
       },
     );
-
     const data = await res.json();
-    redirect("/facilities");
+    window.location.reload();
   };
 
   return (
     <AlertDialog>
-      {/* Trigger button */}
+      {/* Trigger */}
       <Button
-        className="text-[#EF4444] border-[#EF4444] rounded-none text-sm md:text-base"
+        className="rounded-none border-red-500 text-red-500 text-sm md:text-base"
         variant="outline"
       >
-        <BsTrash3 /> Delete
+        <Trash2 size={18} /> Cancel
       </Button>
 
       <AlertDialog.Backdrop>
@@ -41,17 +41,15 @@ export function DeleteFacility({ facility }) {
             <AlertDialog.Header className="pb-3">
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading className="text-base sm:text-lg md:text-xl text-[#0C0B0B]">
-                Delete facility permanently?
+                Cancel Booking Permanently?
               </AlertDialog.Heading>
             </AlertDialog.Header>
 
             {/* Body */}
             <AlertDialog.Body className="py-3">
               <p className="text-sm md:text-base text-[#6C696D] leading-relaxed">
-                Are you sure you want to delete{" "}
-                <strong className="text-[#0C0B0B]">{facilityName}</strong>?
-                This action cannot be undone and will permanently remove this
-                sport facility from the system.
+                Are you sure you want to cancel this booking? This action cannot
+                be undone and your reservation will be permanently removed.
               </p>
             </AlertDialog.Body>
 
@@ -62,15 +60,15 @@ export function DeleteFacility({ facility }) {
                 variant="outline"
                 className="rounded-none text-sm md:text-base w-full sm:w-auto order-2 sm:order-1"
               >
-                Cancel
+                Keep Booking
               </Button>
               <Button
-                onClick={handleDelete}
+                onClick={handleCancelBooking}
                 slot="close"
                 variant="danger"
                 className="rounded-none text-sm md:text-base w-full sm:w-auto order-1 sm:order-2"
               >
-                <FaRegTrashAlt /> Delete Facility
+                <FaRegTrashAlt /> Cancel Booking
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>

@@ -50,7 +50,7 @@ export function EditFacilityModal({ facility }) {
 
     updatedFacility.facility_type = selectedType;
 
-    const res = await fetch(`http://localhost:5000/facilities/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(updatedFacility),

@@ -63,7 +63,7 @@ export default function BookingCard({ facility, imageUrl }) {
     if (!user) { router.push("/login"); return; }
     setLoading(true); setError("");
     try {
-      const res = await fetch("http://localhost:5000/booking", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(bookingData),

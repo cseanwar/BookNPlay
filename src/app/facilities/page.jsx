@@ -3,7 +3,7 @@ import React from "react";
 
 const AllFacilitiesPage = async () => {
     
-  const res = await fetch("http://localhost:5000/facilities");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`);
   const facilities = await res.json();
 
   return (
