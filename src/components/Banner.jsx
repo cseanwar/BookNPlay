@@ -43,7 +43,7 @@ const Banner = () => {
 
       <div className="relative z-20 h-full flex items-center justify-center text-center px-4">
         <div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#FFFFFF] leading-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#FFFFFF] leading-tight">
             Book Your Favorite Sports Facilities
           </h1>
 

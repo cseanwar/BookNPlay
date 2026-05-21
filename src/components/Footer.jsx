@@ -142,10 +142,6 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="flex-1 bg-transparent px-5 py-4 text-sm text-white placeholder:text-slate-400 outline-none"
               />
-
-              <button className="w-16 h-16 flex items-center justify-center bg-[#22C55E] hover:bg-[#16A34A] transition-all duration-300">
-                <span className="text-white text-xl">→</span>
-              </button>
             </div>
 
             {/* <div className="flex items-center bg-slate-800 rounded-xl border border-slate-700">

@@ -11,6 +11,7 @@ import {
   Button,
 } from "@heroui/react";
 
+import { authClient } from "@/lib/auth-client";
 
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LiaSaveSolid } from "react-icons/lia";
@@ -24,16 +25,22 @@ import {
   PiNotePencilBold,
   PiBuildingsBold,
 } from "react-icons/pi";
+
 import { TbCategory } from "react-icons/tb";
+import { useRouter } from "next/navigation";
 
 const AddFacility = () => {
+  const { data: session } = authClient.useSession();
+  const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const facility = Object.fromEntries(formData.entries());
 
-    console.log(facility);
+    const facility = {
+      ...Object.fromEntries(formData.entries()),
+      ownerEmail: session?.user?.email,
+    };
 
     const res = await fetch("http://localhost:5000/facilities", {
       method: "POST",
@@ -45,13 +52,42 @@ const AddFacility = () => {
 
     const data = await res.json();
 
-    console.log(data);
+    if (data.insertedId) {
+      router.push("/facilities");
+    }
   };
+
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.currentTarget);
+  //   const facility = {
+  //     ...Object.fromEntries(formData.entries()),
+  //     ownerEmail: session?.user?.email,
+  //   };
+
+  //   console.log(facility);
+
+  //   const res = await fetch("http://localhost:5000/facilities", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(facility),
+  //   });
+
+  //   const data = await res.json();
+
+  //   if (data.insertedId) {
+  //         toast.success("You have added a facility successfully!");
+  //       router.push("/facilities");
+  //   }
+
+  //   console.log(data);
+  // };
 
   return (
     <section className="bg-[#F8FAFC] min-h-screen py-16 lg:py-20 px-4">
       <div className="max-w-6xl mx-auto">
-
         {/* Header */}
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 bg-[#22C55E]/10 text-[#16A34A] px-5 py-2 rounded-full text-sm font-semibold mb-5">
@@ -71,18 +107,12 @@ const AddFacility = () => {
 
         {/* Form Card */}
         <div className="bg-white rounded-[32px] border border-slate-200 shadow-xl overflow-hidden">
-
           {/* Top Gradient */}
           <div className="h-2 bg-linear-to-r from-[#22C55E] to-[#16A34A]" />
 
-          <form
-            onSubmit={onSubmit}
-            className="p-6 md:p-10 lg:p-12"
-          >
-
+          <form onSubmit={onSubmit} className="p-6 md:p-10 lg:p-12">
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
               {/* Facility Name */}
               <div>
                 <TextField name="facilityName" isRequired>
@@ -182,6 +212,22 @@ const AddFacility = () => {
                 </TextField>
               </div>
 
+              {/* Owner Email Auto Fill */}
+              <div>
+                <TextField>
+                  <Label className="text-[#0F172A] font-semibold mb-1 flex items-center gap-2">
+                    <PiUsersBold className="text-[#22C55E]" />
+                    Owner Email
+                  </Label>
+
+                  <Input
+                    value={session?.user?.email || ""}
+                    isReadOnly
+                    className="rounded-2xl bg-[#F1F5F9] border border-slate-200"
+                  />
+                </TextField>
+              </div>
+
               {/* Price */}
               <div>
                 <TextField name="price_per_hour" isRequired>
@@ -254,7 +300,6 @@ const AddFacility = () => {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row justify-end gap-4 mt-12">
-
               <Button
                 type="button"
                 className="border border-red-400 bg-white text-red-500 hover:bg-red-50 rounded-xl px-6 py-6 text-base font-semibold"

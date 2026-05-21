@@ -101,27 +101,27 @@ const Navbar = () => {
               {/* Dropdown */}
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-52 bg-white border border-gray-100 rounded-xl shadow-lg py-2 flex flex-col">
-                  <Link
+                  <NavLink
                     href="/my-bookings"
                     onClick={() => setDropdownOpen(false)}
-                    className="px-4 py-2 text-sm text-[#334155] hover:bg-green-300"
+                    className="px-4 py-2 text-sm"
                   >
                     My Bookings
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     href="/add-facility"
                     onClick={() => setDropdownOpen(false)}
-                    className="px-4 py-2 text-sm text-[#334155] hover:bg-gray-300"
+                    className="px-4 py-2 text-sm"
                   >
                     Add Facility
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     href="/manage-my-facilities"
                     onClick={() => setDropdownOpen(false)}
-                    className="px-4 py-2 text-sm text-[#334155] hover:bg-gray-300"
+                    className="px-4 py-2 text-sm"
                   >
                     Manage My Facilities
-                  </Link>
+                  </NavLink>
                   <div className="border-t border-gray-100 mt-2 pt-2 px-2">
                     <button
                       onClick={handleSignOut}
@@ -218,16 +218,12 @@ const Navbar = () => {
             </>
           ) : (
             <div className="border-t border-gray-100 pt-4 flex gap-4">
-              <NavLink mobile href="/login" onClick={() => setMenuOpen(false)}>
+              <Link mobile href="/login" onClick={() => setMenuOpen(false)}>
                 Login
-              </NavLink>
-              <NavLink
-                mobile
-                href="/register"
-                onClick={() => setMenuOpen(false)}
-              >
+              </Link>
+              <Link mobile href="/register" onClick={() => setMenuOpen(false)}>
                 Register
-              </NavLink>
+              </Link>
             </div>
           )}
         </div>

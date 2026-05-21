@@ -1,32 +1,24 @@
 "use client";
-import { FcGoogle } from "react-icons/fc";
-import {
-  Button,
-  Description,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  TextField,
-} from "@heroui/react";
+
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useRef } from "react";
 import toast from "react-hot-toast";
-import { User, Link2, Mail, Lock } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
+import { User, Link2, Mail, Lock, ArrowRight, ShieldCheck } from "lucide-react";
 
 const RegisterPage = () => {
+  const router = useRouter();
   const passwordRef = useRef("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
 
     if (user.password !== user.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -39,213 +31,198 @@ const RegisterPage = () => {
 
     if (data) {
       await authClient.signOut();
-      toast.success("Congratulations!!! You have signed up successfully");
-      redirect("/login");
+      toast.success("Account created successfully!");
+      router.push("/login");
     }
-
-    if (error) {
-      toast.error("Signup failed");
-    }
+    if (error) { toast.error("Signup failed"); }
   };
 
   const handleGoogleSignin = async () => {
     await authClient.signIn.social({ provider: "google" });
   };
 
+  const inputStyle = {
+    width: "100%", height: 52, paddingLeft: 48, paddingRight: 16,
+    borderRadius: 14, border: "1.5px solid #E2E8F0", background: "#F8FAFC",
+    fontSize: 15, color: "#0F172A", outline: "none",
+    fontFamily: "inherit", boxSizing: "border-box",
+  };
+  const labelStyle = {
+    display: "block", fontSize: 11, fontWeight: 700, color: "#0F172A",
+    textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8,
+  };
+  const iconStyle = {
+    position: "absolute", left: 16, top: "50%",
+    transform: "translateY(-50%)", color: "#94A3B8", pointerEvents: "none",
+  };
+
+  const handleFocus = (e) => e.target.style.borderColor = "#22C55E";
+  const handleBlur  = (e) => e.target.style.borderColor = "#E2E8F0";
+
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-white py-10 px-4 overflow-x-hidden">
-      {/* Header */}
-      <div className="text-center mb-6 w-full max-w-lg px-2">
-        <h1 className="text-4xl md:text-5xl text-[#0C0B0B] mb-2 wrap-break-word">
-          Create Account
-        </h1>
-        <p className="text-[#6C696D] text-base md:text-lg wrap-break-word">
-          Start your adventure with BookNPlay
-        </p>
-      </div>
+    <div style={{ minHeight: "100vh", background: "#F8FAFC", display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 16px" }}>
+      <div className="register-grid" style={{ width: "100%", maxWidth: 1100, background: "#fff", borderRadius: 20, boxShadow: "0 25px 60px rgba(0,0,0,0.12)", overflow: "hidden", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
 
-      {/* Form container */}
-      <div className="w-full max-w-lg border border-gray-200 shadow-sm p-6 md:p-10">
-        <Form
-          onSubmit={onSubmit}
-          className="flex flex-col gap-4"
-          style={{ width: "100%" }}
-        >
-          {/* Full Name */}
-          <TextField isRequired name="name" type="text" className="w-full mb-1">
-            <Label className="text-[#0C0B0B] font-medium text-base md:text-lg">
-              Full Name
-            </Label>
-            <div className="relative w-full">
-              <User
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10"
-              />
-              <Input
-                className="rounded-none bg-[#F8FAFC] text-sm text-[#6C696D] pl-9"
-                style={{ width: "100%" }}
-                placeholder="Enter your name"
-              />
+        {/* ── LEFT green panel ── */}
+        <div className="register-left" style={{ position: "relative", background: "linear-gradient(135deg, #22C55E 0%, #15803D 55%, #14532D 100%)", padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden" }}>
+          {/* Glow blobs */}
+          <div style={{ position: "absolute", top: -120, right: -120, width: 320, height: 320, background: "rgba(255,255,255,0.08)", borderRadius: "50%", filter: "blur(60px)" }} />
+          <div style={{ position: "absolute", bottom: -120, left: -120, width: 260, height: 260, background: "rgba(255,255,255,0.08)", borderRadius: "50%", filter: "blur(60px)" }} />
+
+          {/* Heading */}
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <h1 style={{ color: "#fff", fontSize: 46, fontWeight: 900, lineHeight: 1.15, marginBottom: 20 }}>
+              Join The Future<br />Of Sports Booking
+            </h1>
+            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 16, lineHeight: 1.7, maxWidth: 340 }}>
+              Create your BookNPlay account and start booking premium sports facilities in seconds.
+            </p>
+          </div>
+
+          {/* Feature cards */}
+          <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* Security card */}
+            <div style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 24, padding: "20px 24px", display: "flex", alignItems: "flex-start", gap: 16 }}>
+              <div style={{ width: 48, height: 48, borderRadius: 14, background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <ShieldCheck color="#fff" size={22} />
+              </div>
+              <div>
+                <p style={{ color: "#fff", fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Secure Authentication</p>
+                <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 13, lineHeight: 1.5 }}>Protected login and account security for every user.</p>
+              </div>
             </div>
-            <FieldError />
-          </TextField>
 
-          {/* Image URL */}
-          <TextField name="image" type="url" className="w-full mb-1">
-            <Label className="text-[#0C0B0B] font-medium text-base md:text-lg">
-              Image URL
-            </Label>
-            <div className="relative w-full">
-              <Link2
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10"
-              />
-              <Input
-                className="rounded-none bg-[#F8FAFC] text-sm text-[#6C696D] pl-9"
-                style={{ width: "100%" }}
-                placeholder="https://example.com/photo.jpg"
-              />
-            </div>
-            <FieldError />
-          </TextField>
-
-          {/* Email */}
-          <TextField
-            isRequired
-            name="email"
-            type="email"
-            className="w-full mb-1"
-            validate={(value) => {
-              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value))
-                return "Please enter a valid email address";
-              return null;
-            }}
-          >
-            <Label className="text-[#0C0B0B] font-medium text-base md:text-lg">
-              Email Address
-            </Label>
-            <div className="relative w-full">
-              <Mail
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10"
-              />
-              <Input
-                className="rounded-none bg-[#F8FAFC] text-sm text-[#6C696D] pl-9"
-                style={{ width: "100%" }}
-                placeholder="john@example.com"
-              />
-            </div>
-            <FieldError />
-          </TextField>
-
-          {/* Password */}
-          <TextField
-            isRequired
-            minLength={8}
-            name="password"
-            type="password"
-            className="w-full mb-1"
-            validate={(value) => {
-              if (value.length < 6)
-                return "Password must be at least 8 characters";
-              if (!/[A-Z]/.test(value))
-                return "Password must contain at least one uppercase letter";
-              if (!/[a-z]/.test(value))
-                return "Password must contain at least one lowercase letter";
-              if (!/[0-9]/.test(value))
-                return "Password must contain at least one number";
-              return null;
-            }}
-          >
-            <Label className="text-[#0C0B0B] font-medium text-base md:text-lg">
-              Password
-            </Label>
-            <div className="relative w-full">
-              <Lock
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10"
-              />
-              <Input
-                className="rounded-none bg-[#F8FAFC] text-sm text-[#6C696D] pl-9"
-                style={{ width: "100%" }}
-                placeholder="Create a password"
-                onChange={(e) => (passwordRef.current = e.target.value)}
-              />
-            </div>
-            <Description className="text-red-500 text-xs md:text-sm">
-              Must be at least 8 characters with 1 uppercase and 1 number
-            </Description>
-            <FieldError />
-          </TextField>
-
-          {/* Confirm Password */}
-          <TextField
-            isRequired
-            name="confirmPassword"
-            type="password"
-            className="w-full mb-2"
-            validate={(value) => {
-              if (value !== passwordRef.current)
-                return "Passwords do not match";
-              return null;
-            }}
-          >
-            <Label className="text-[#0C0B0B] font-medium text-base md:text-lg">
-              Confirm Password
-            </Label>
-            <div className="relative w-full">
-              <Lock
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10"
-              />
-              <Input
-                className="rounded-none bg-[#F8FAFC] text-sm text-[#6C696D] pl-9"
-                style={{ width: "100%" }}
-                placeholder="Confirm your password"
-              />
-            </div>
-            <FieldError />
-          </TextField>
-
-          {/* Submit */}
-          <Button
-            className="rounded-none w-full bg-[#15A1BF] hover:bg-[#03485790] text-white text-base md:text-lg font-bold py-5 mt-2"
-            style={{ width: "100%" }}
-            type="submit"
-          >
-            Create Account
-          </Button>
-        </Form>
-
-        {/* Divider */}
-        <div className="flex items-center gap-3 my-5 w-full overflow-hidden">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="whitespace-nowrap text-sm text-[#6C696D] shrink-0">
-            Or sign up with
-          </span>
-          <div className="flex-1 h-px bg-gray-200" />
+            {/* Stat cards */}
+            {[
+              { label: "Registered Players", value: "15K+" },
+              { label: "Premium Facilities",  value: "250+" },
+            ].map(({ label, value }) => (
+              <div key={label} style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 24, padding: "20px 24px" }}>
+                <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 13, marginBottom: 4 }}>{label}</p>
+                <p style={{ color: "#fff", fontSize: 32, fontWeight: 900, lineHeight: 1 }}>{value}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Google */}
-        <Button
-          onClick={handleGoogleSignin}
-          variant="outline"
-          className="w-full rounded-none py-5 font-semibold text-base md:text-lg mb-5"
-          style={{ width: "100%" }}
-        >
-          <FcGoogle /> Sign In with Google
-        </Button>
+        {/* ── RIGHT form ── */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 48px" }}>
+          <div style={{ width: "100%", maxWidth: 440 }}>
 
-        {/* Sign in link */}
-        <p className="text-[#6C696D] text-base text-center">
-          Already have an account?{" "}
-          <Link href="/login">
-            <span className="text-[#15A1BF] font-semibold text-lg">
-              Sign In
-            </span>
-          </Link>
-        </p>
+            {/* Header */}
+            <div style={{ marginBottom: 36 }}>
+              <h2 style={{ fontSize: 44, fontWeight: 900, color: "#0F172A", marginBottom: 10 }}>Create Account</h2>
+              <p style={{ color: "#64748B", fontSize: 16 }}>Join BookNPlay and start your sports journey</p>
+            </div>
+
+            <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+
+              {/* Full Name */}
+              <div>
+                <label style={labelStyle}>Full Name</label>
+                <div style={{ position: "relative" }}>
+                  <User size={17} style={iconStyle} />
+                  <input required name="name" type="text" placeholder="Enter your full name"
+                    style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                </div>
+              </div>
+
+              {/* Image URL */}
+              <div>
+                <label style={labelStyle}>Profile Image URL</label>
+                <div style={{ position: "relative" }}>
+                  <Link2 size={17} style={iconStyle} />
+                  <input name="image" type="url" placeholder="https://example.com/photo.jpg"
+                    style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label style={labelStyle}>Email Address</label>
+                <div style={{ position: "relative" }}>
+                  <Mail size={17} style={iconStyle} />
+                  <input required name="email" type="email" placeholder="john@example.com"
+                    style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                </div>
+              </div>
+
+              {/* Password + Confirm — side by side */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                <div>
+                  <label style={labelStyle}>Password</label>
+                  <div style={{ position: "relative" }}>
+                    <Lock size={17} style={iconStyle} />
+                    <input required name="password" type="password" placeholder="Create password"
+                      style={inputStyle}
+                      onChange={(e) => (passwordRef.current = e.target.value)}
+                      onFocus={handleFocus} onBlur={handleBlur} />
+                  </div>
+                </div>
+                <div>
+                  <label style={labelStyle}>Confirm Password</label>
+                  <div style={{ position: "relative" }}>
+                    <Lock size={17} style={iconStyle} />
+                    <input required name="confirmPassword" type="password" placeholder="Confirm password"
+                      style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                  </div>
+                </div>
+              </div>
+
+              <p style={{ fontSize: 13, color: "#64748B", marginTop: -4 }}>
+                Password must contain uppercase, lowercase and number.
+              </p>
+
+              {/* Submit */}
+              <button type="submit" style={{
+                width: "100%", height: 54, borderRadius: 14, border: "none",
+                background: "linear-gradient(135deg, #22C55E 0%, #15803D 100%)",
+                color: "#fff", fontSize: 16, fontWeight: 700,
+                cursor: "pointer", display: "flex", alignItems: "center",
+                justifyContent: "center", gap: 8,
+                boxShadow: "0 8px 28px rgba(34,197,94,0.35)",
+                fontFamily: "inherit", marginTop: 4,
+              }}>
+                Create Account <ArrowRight size={18} />
+              </button>
+            </form>
+
+            {/* Divider */}
+            <div style={{ display: "flex", alignItems: "center", gap: 16, margin: "24px 0" }}>
+              <div style={{ flex: 1, height: 1, background: "#E2E8F0" }} />
+              <span style={{ color: "#94A3B8", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em" }}>OR CONTINUE WITH</span>
+              <div style={{ flex: 1, height: 1, background: "#E2E8F0" }} />
+            </div>
+
+            {/* Google */}
+            <button onClick={handleGoogleSignin} style={{
+              width: "100%", height: 54, borderRadius: 14,
+              background: "#fff", border: "1.5px solid #E2E8F0",
+              color: "#0F172A", fontSize: 15, fontWeight: 700,
+              cursor: "pointer", display: "flex", alignItems: "center",
+              justifyContent: "center", gap: 10, fontFamily: "inherit",
+            }}>
+              <FcGoogle size={22} /> Sign up with Google
+            </button>
+
+            {/* Footer */}
+            <p style={{ textAlign: "center", color: "#64748B", marginTop: 24, fontSize: 15 }}>
+              Already have an account?{" "}
+              <Link href="/login" style={{ color: "#16A34A", fontWeight: 700, textDecoration: "none" }}>
+                Sign In
+              </Link>
+            </p>
+
+          </div>
+        </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .register-grid { grid-template-columns: 1fr !important; }
+          .register-left { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 };

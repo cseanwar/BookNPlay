@@ -11,13 +11,15 @@ const NavLink = ({ href, className, children, onClick, mobile }) => {
     <Link
       href={href}
       onClick={onClick}
+      // className={`${isActive ? "text-[#22C55E] font-semibold" : ""} ${className}`}
+
       className={`
         ${mobile
           ? isActive
             ? "text-[#22C55E] font-semibold"
             : "text-[#334155]"
           : isActive
-            ? "border-b-2 border-b-[#22C55E] text-lg font-semibold py-1"
+            ? "text-[#22C55E] font-semibold"
             : ""
         }
         ${className ?? ""}
