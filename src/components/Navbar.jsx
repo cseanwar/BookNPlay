@@ -57,9 +57,6 @@ const Navbar = () => {
             alt="logo"
             className="object-contain"
           />
-          <span className="font-bold text-lg text-[#0C0B0B] hidden sm:block">
-            BookNPlay
-          </span>
         </Link>
 
         {/* Desktop nav — public links only */}
