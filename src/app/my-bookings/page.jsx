@@ -81,7 +81,7 @@ const MyBookingPage = async () => {
               className="grid grid-cols-1 md:grid-cols-12 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200/80 min-h-[180px]"
             >
               {/* Left Image Section - Locked to 3/12 of the card width on desktop */}
-              <div className="relative w-full h-48 md:h-full md:col-span-3 min-h-[180px] bg-gray-100 shrink-0">
+              <div className="relative w-full h-48 md:h-full md:col-span-3 min-h-45 bg-gray-100 shrink-0">
                 <Image
                   src={
                     booking.imageUrl?.trimStart() ||
@@ -139,7 +139,7 @@ const MyBookingPage = async () => {
                     <span className="block text-[10px] uppercase tracking-wider font-bold text-gray-400">
                       Total Paid
                     </span>
-                    <p className="text-xl font-extrabold text-[#15A1BF]">
+                    <p className="text-xl font-extrabold text-[#22C55E]">
                       ${booking.totalPrice?.toLocaleString() || "0.00"}
                     </p>
                   </div>

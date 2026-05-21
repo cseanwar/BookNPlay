@@ -31,6 +31,7 @@ import { useRouter } from "next/navigation";
 
 const AddFacility = () => {
   const { data: session } = authClient.useSession();
+  const user = session?.user;
   const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -56,34 +57,6 @@ const AddFacility = () => {
       router.push("/facilities");
     }
   };
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.currentTarget);
-  //   const facility = {
-  //     ...Object.fromEntries(formData.entries()),
-  //     ownerEmail: session?.user?.email,
-  //   };
-
-  //   console.log(facility);
-
-  //   const res = await fetch("http://localhost:5000/facilities", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(facility),
-  //   });
-
-  //   const data = await res.json();
-
-  //   if (data.insertedId) {
-  //         toast.success("You have added a facility successfully!");
-  //       router.push("/facilities");
-  //   }
-
-  //   console.log(data);
-  // };
 
   return (
     <section className="bg-[#F8FAFC] min-h-screen py-16 lg:py-20 px-4">

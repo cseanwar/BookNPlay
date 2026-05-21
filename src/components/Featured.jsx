@@ -27,7 +27,7 @@ const Featured = async () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10">
           {facilities.map((facility) => (
             <FacilityCard key={facility._id} facility={facility} />
           ))}
