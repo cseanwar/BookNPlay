@@ -67,6 +67,15 @@ const Navbar = () => {
           <li>
             <NavLink href="/facilities">All Facilities</NavLink>
           </li>
+          <li>
+            <NavLink href="/my-bookings">My Bookings</NavLink>
+          </li>
+          <li>
+            <NavLink href="/add-facility">Add Facility</NavLink>
+          </li>
+          <li>
+            <NavLink href="/manage-my-facilities">Manage My Facilities</NavLink>
+          </li>
         </ul>
 
         {/* Desktop right section */}

@@ -19,7 +19,7 @@ const NavLink = ({ href, className, children, onClick, mobile }) => {
             ? "text-[#22C55E] font-semibold"
             : "text-[#334155]"
           : isActive
-            ? "text-[#22C55E] font-semibold"
+            ? "text-[#22C55E] font-semibold text-lg"
             : ""
         }
         ${className ?? ""}

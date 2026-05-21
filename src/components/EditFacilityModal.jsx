@@ -12,6 +12,7 @@ import {
   TextField,
   Select,
 } from "@heroui/react";
+import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LiaSaveSolid } from "react-icons/lia";
@@ -70,12 +71,16 @@ export function EditFacilityModal({ facility }) {
 
   return (
     <Modal>
-      <Button
+      <button className="flex-1 h-12 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-emerald-500 transition-all duration-300 font-semibold flex items-center justify-center gap-2 text-gray-700">
+        <Pencil size={18} />
+        Edit
+      </button>
+      {/* <Button
         variant="outline"
         className="rounded-xl text-[#0C0B0B] text-sm md:text-base"
       >
         <RiEdit2Line /> Edit
-      </Button>
+      </Button> */}
 
       <Modal.Backdrop>
         <Modal.Container placement="auto">
