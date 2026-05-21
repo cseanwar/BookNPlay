@@ -1,7 +1,6 @@
 "use client";
 
 import { AlertDialog, Button } from "@heroui/react";
-import { Trash2 } from "lucide-react";
 import { redirect } from "next/navigation";
 import { BsTrash3 } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -26,10 +25,12 @@ export function DeleteFacility({ facility }) {
   return (
     <AlertDialog>
       {/* Trigger button */}
-      <button className="flex-1 h-12 rounded-2xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 font-semibold flex items-center justify-center gap-2">
-        <Trash2 size={18} />
-        Delete
-      </button>
+      <Button
+        className="flex-1 h-12 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 font-semibold flex items-center justify-center gap-2"
+        variant="outline"
+      >
+        <BsTrash3 /> Delete
+      </Button>
 
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
@@ -48,9 +49,9 @@ export function DeleteFacility({ facility }) {
             <AlertDialog.Body className="py-3">
               <p className="text-sm md:text-base text-[#6C696D] leading-relaxed">
                 Are you sure you want to delete{" "}
-                <strong className="text-[#0C0B0B]">{facilityName}</strong>? This
-                action cannot be undone and will permanently remove this sport
-                facility from the system.
+                <strong className="text-[#0C0B0B]">{facilityName}</strong>?
+                This action cannot be undone and will permanently remove this
+                sport facility from the system.
               </p>
             </AlertDialog.Body>
 
