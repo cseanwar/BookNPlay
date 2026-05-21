@@ -63,8 +63,8 @@ export function EditFacilityModal({ facility }) {
     const data = await res.json();
     if (data.modifiedCount > 0) {
       toast.success("Facility updated successfully");
-      // onClose();
-      setIsOpen(false);
+      onClose();
+      // setIsOpen(false);
     }
   };
 

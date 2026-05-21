@@ -16,7 +16,7 @@ const ManageFacilityCard = ({ facility }) => {
   } = facility;
 
   return (
-    <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+    <div className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
       {/* IMAGE */}
       <div className="relative h-80 overflow-hidden">
         <Image
@@ -63,7 +63,7 @@ const ManageFacilityCard = ({ facility }) => {
 
       {/* ACTIONS */}
       {/* ACTIONS */}
-      <div className="p-5 flex gap-4">
+      <div className="p-5 flex justify-between items-center gap-4">
         {/* EDIT */}
         <div className="flex-1">
           <EditFacilityModal facility={facility} />
