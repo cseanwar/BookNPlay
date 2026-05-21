@@ -10,7 +10,7 @@ const Featured = async () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
           {/* Small Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-green-200 bg-green-50 text-green-600 text-sm font-semibold mb-5">
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-green-200 bg-green-50 text-green-600 text-sm font-semibold">
             ⚡ Premium Sports Venues
           </div>
 
@@ -27,7 +27,7 @@ const Featured = async () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-16">
           {facilities.map((facility) => (
             <FacilityCard key={facility._id} facility={facility} />
           ))}
