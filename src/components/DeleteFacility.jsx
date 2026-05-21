@@ -19,7 +19,7 @@ export function DeleteFacility({ facility }) {
     );
 
     const data = await res.json();
-    redirect("/facilities");
+    // redirect("/facilities");
   };
 
   return (
@@ -60,7 +60,7 @@ export function DeleteFacility({ facility }) {
               <Button
                 slot="close"
                 variant="outline"
-                className="rounded-none text-sm md:text-base w-full sm:w-auto order-2 sm:order-1"
+                className="rounded-xl text-sm md:text-base w-full sm:w-auto order-2 sm:order-1"
               >
                 Cancel
               </Button>
@@ -68,7 +68,7 @@ export function DeleteFacility({ facility }) {
                 onClick={handleDelete}
                 slot="close"
                 variant="danger"
-                className="rounded-none text-sm md:text-base w-full sm:w-auto order-1 sm:order-2"
+                className="rounded-xl text-sm md:text-base w-full sm:w-auto order-1 sm:order-2"
               >
                 <FaRegTrashAlt /> Delete Facility
               </Button>

@@ -41,7 +41,7 @@ export function EditFacilityModal({ facility }) {
   } = facility;
 
   const [selectedType, setSelectedType] = useState(facility_type);
-//   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -50,17 +50,22 @@ export function EditFacilityModal({ facility }) {
 
     updatedFacility.facility_type = selectedType;
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(updatedFacility),
-      //   credentials: "include",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(updatedFacility),
+        //   credentials: "include",
+      },
+    );
 
     const data = await res.json();
-    // if (data.modifiedCount > 0) {
-    //   setIsOpen(false);
-    // }
+    if (data.modifiedCount > 0) {
+      toast.success("Facility updated successfully");
+      // onClose();
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -301,7 +306,7 @@ export function EditFacilityModal({ facility }) {
                       type="button"
                       slot="close"
                       variant="danger"
-                      className="bg-white text-[#EF4444] border-2 border-[#EF4444] text-sm rounded-none w-full sm:w-auto"
+                      className="bg-white text-[#EF4444] border-2 border-[#EF4444] text-sm rounded-xl w-full sm:w-auto"
                     >
                       <FaRegTrashAlt /> Cancel
                     </Button>
