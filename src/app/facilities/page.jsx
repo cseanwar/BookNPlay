@@ -1,8 +1,9 @@
 import FacilityCard from "@/components/FacilityCard";
+import { Button, Label, SearchField } from "@heroui/react";
+import { Filter } from "lucide-react";
 import React from "react";
 
 const AllFacilitiesPage = async () => {
-    
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`);
   const facilities = await res.json();
 
@@ -18,6 +19,27 @@ const AllFacilitiesPage = async () => {
           Discover premium football turfs, badminton courts, swimming pools,
           tennis arenas and more near you.
         </p>
+      </div>
+
+      <div className="flex justify-between items-center mb-5">
+        <div className="w-100 space-y-4">
+          <SearchField fullWidth name="search">
+            {/* <Label>Search</Label> */}
+            <SearchField.Group className="bg-[#33415510]">
+              <SearchField.SearchIcon className="text-[#22C55E]" />
+              <SearchField.Input className="text-[#22C55E] font-semibold" placeholder="Search..." />
+              <SearchField.ClearButton />
+            </SearchField.Group>
+          </SearchField>
+        </div>
+
+        <Button
+          variant="flat"
+          startContent={<Filter className="w-4 h-4" />}
+          className="rounded-full font-bold"
+        >
+          Filters
+        </Button>
       </div>
 
       {/* Grid */}

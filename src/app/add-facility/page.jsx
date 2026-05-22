@@ -63,7 +63,7 @@ const AddFacility = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-[#22C55E]/10 text-[#16A34A] px-5 py-2 rounded-full text-sm font-semibold mb-5">
+          <div className="inline-flex items-center gap-2 bg-[#22C55E]/10 text-[#16A34A] px-5 py-2 rounded-full text-sm font-semibold">
             <PiBuildingsBold className="text-lg" />
             Add New Sports Facility
           </div>

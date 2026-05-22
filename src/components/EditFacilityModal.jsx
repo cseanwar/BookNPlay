@@ -77,7 +77,7 @@ export function EditFacilityModal({ facility }) {
       </button> */}
       <Button
         variant="outline"
-        className="flex-1 h-12 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-emerald-500 transition-all duration-300 font-semibold flex items-center justify-center gap-2 text-gray-700"
+        className="flex-1 h-12 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-emerald-500 transition-all duration-300 font-semibold text-gray-700"
       >
         <RiEdit2Line /> Edit
       </Button>
@@ -311,7 +311,7 @@ export function EditFacilityModal({ facility }) {
                       type="button"
                       slot="close"
                       variant="danger"
-                      className="bg-white text-[#EF4444] border-2 border-[#EF4444] text-sm rounded-xl w-full sm:w-auto"
+                      className="bg-white text-[#EF4444] border-2 border-[#EF4444] text-base px-8 py-5 rounded-xl font-semibold shadow-xl w-full sm:w-auto"
                     >
                       <FaRegTrashAlt /> Cancel
                     </Button>

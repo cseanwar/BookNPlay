@@ -26,7 +26,7 @@ export function DeleteFacility({ facility }) {
     <AlertDialog>
       {/* Trigger button */}
       <Button
-        className="flex-1 h-12 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 font-semibold flex items-center justify-center gap-2"
+        className="flex-1 h-12 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 font-semibold"
         variant="outline"
       >
         <BsTrash3 /> Delete
