@@ -12,8 +12,9 @@ export async function proxy(request) {
          return NextResponse.redirect(new URL('/login', request.url))
     }
 
+    return NextResponse.next();
 }
  
 export const config = {
-  matcher: ['/my-bookings', '/add-facility', '/facilities/:path', '/manage-my-facilities'],
+  matcher: ['/my-bookings', '/add-facility', '/facilities/:path*', '/manage-my-facilities'],
 }

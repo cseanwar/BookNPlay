@@ -67,15 +67,9 @@ const Navbar = () => {
           <li>
             <NavLink href="/facilities">All Facilities</NavLink>
           </li>
-          <li>
-            <NavLink href="/my-bookings">My Bookings</NavLink>
-          </li>
-          <li>
-            <NavLink href="/add-facility">Add Facility</NavLink>
-          </li>
-          <li>
-            <NavLink href="/manage-my-facilities">Manage My Facilities</NavLink>
-          </li>
+          {/* <li>
+            <NavLink href="/about-us">About Us</NavLink>
+          </li> */}
         </ul>
 
         {/* Desktop right section */}
@@ -140,18 +134,19 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <Link href="/login">
-                <button className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
-                  Login
-                </button>
-              </Link>
-              <Link href="/register">
-                <button className="bg-[#1E293B] text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
-                  Register
-                </button>
-              </Link>
-            </div>
+            <Link href="/login">
+              <button className="bg-linear-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                Login
+              </button>
+            </Link>
+            // <div className="flex items-center gap-2">
+
+            //   <Link href="/register">
+            //     <button className="bg-[#1E293B] text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+            //       Register
+            //     </button>
+            //   </Link>
+            // </div>
           )}
         </div>
 
@@ -223,13 +218,13 @@ const Navbar = () => {
               </div>
             </>
           ) : (
-            <div className="border-t border-gray-100 pt-4 flex gap-4">
-              <Link mobile href="/login" onClick={() => setMenuOpen(false)}>
+            <div className="border-t border-gray-100 pt-4">
+              <NavLink mobile href="/login" onClick={() => setMenuOpen(false)}>
                 Login
-              </Link>
-              <Link mobile href="/register" onClick={() => setMenuOpen(false)}>
+              </NavLink>
+              {/* <Link mobile href="/register" onClick={() => setMenuOpen(false)}>
                 Register
-              </Link>
+              </Link> */}
             </div>
           )}
         </div>

@@ -26,7 +26,7 @@ export function BookingCancelAlert({ bookingId }) {
     <AlertDialog>
       {/* Trigger */}
       <Button
-        className="rounded-none border-red-500 text-red-500 text-sm md:text-base"
+        className="rounded-xl border-red-500 text-red-500 text-sm md:text-base"
         variant="outline"
       >
         <Trash2 size={18} /> Cancel
@@ -58,7 +58,7 @@ export function BookingCancelAlert({ bookingId }) {
               <Button
                 slot="close"
                 variant="outline"
-                className="rounded-none text-sm md:text-base w-full sm:w-auto order-2 sm:order-1"
+                className="rounded-xl text-sm md:text-base w-full sm:w-auto order-2 sm:order-1"
               >
                 Keep Booking
               </Button>
@@ -66,7 +66,7 @@ export function BookingCancelAlert({ bookingId }) {
                 onClick={handleCancelBooking}
                 slot="close"
                 variant="danger"
-                className="rounded-none text-sm md:text-base w-full sm:w-auto order-1 sm:order-2"
+                className="rounded-xl text-sm md:text-base w-full sm:w-auto order-1 sm:order-2"
               >
                 <FaRegTrashAlt /> Cancel Booking
               </Button>

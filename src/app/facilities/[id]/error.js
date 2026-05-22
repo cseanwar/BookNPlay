@@ -50,7 +50,7 @@ const ErrorPage = ({ error, reset }) => {
           {/* Retry */}
           <button
             onClick={() => reset()}
-            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-400 hover:to-orange-400 transition-all duration-300 font-semibold text-lg shadow-2xl hover:scale-105"
+            className="px-8 py-4 rounded-2xl bg-linear-to-r from-red-500 to-orange-500 hover:from-red-400 hover:to-orange-400 transition-all duration-300 font-semibold text-lg shadow-2xl hover:scale-105"
           >
             Try Again
           </button>

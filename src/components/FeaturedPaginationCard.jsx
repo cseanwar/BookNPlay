@@ -16,9 +16,9 @@ const FeaturedPaginationCard = ({ facilities }) => {
   );
 
   return (
-    <>
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div className="space-y-8">
+      {/* Facilities Grid */}
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {paginated.map((facility) => (
           <FacilityCard key={facility._id} facility={facility} />
         ))}
@@ -26,31 +26,35 @@ const FeaturedPaginationCard = ({ facilities }) => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center mt-5">
-          <div className="flex gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                  border: "2px solid",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  borderColor: currentPage === page ? "#22C55E" : "#E5E7Eb",
-                  background: currentPage === page ? "#22C55E" : "#FFFFFF",
-                  color: currentPage === page ? "#FFFFFF" : "#374151",
-                }}
-              >
-                {page}
-              </button>
-            ))}
+        <div className="flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+              (page) => {
+                const isActive = currentPage === page;
+
+                return (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`
+                      flex h-11 w-11 items-center justify-center rounded-xl
+                      border-2 text-sm font-bold transition-all duration-200
+                      ${
+                        isActive
+                          ? "border-green-500 bg-green-500 text-white shadow-md shadow-green-200"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-green-400 hover:text-green-600"
+                      }
+                    `}
+                  >
+                    {page}
+                  </button>
+                );
+              },
+            )}
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

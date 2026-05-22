@@ -1,8 +1,17 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  Calendar,
+  Clock3,
+  Building2,
+  ShieldCheck,
+  Zap,
+  Headphones,
+  Check,
+} from "lucide-react";
 import Image from "next/image";
 
 const TIME_SLOTS = [
@@ -20,239 +29,318 @@ const TIME_SLOTS = [
   "7:00 PM",
   "8:00 PM",
 ];
+
 const HOURS_OPTIONS = [1, 2, 3, 4, 5, 6];
 
 export default function BookingCard({ facility, imageUrl }) {
-  const { _id, facilityName, price_per_hour } = facility;
+  const { facilityName, price_per_hour } = facility;
+
   const { data: session } = authClient.useSession();
   const user = session?.user;
+
   const router = useRouter();
- 
+
   const [bookingDate, setBookingDate] = useState("");
-  const [timeSlot, setTimeSlot]       = useState("");
-  const [hours, setHours]             = useState(1);
-  const [loading, setLoading]         = useState(false);
-  const [success, setSuccess]         = useState(false);
-  const [error, setError]             = useState("");
- 
-  const totalPrice = useMemo(
-    () => (parseFloat(price_per_hour) * hours).toFixed(2),
-    [price_per_hour, hours]
-  );
+  const [timeSlot, setTimeSlot] = useState("");
+  const [hours, setHours] = useState(1);
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const totalPrice = useMemo(() => {
+    return (parseFloat(price_per_hour) * hours).toFixed(2);
+  }, [price_per_hour, hours]);
+
   const today = new Date().toISOString().split("T")[0];
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
     const bookingData = {
-      userId: user?.id,
-      userImage: user?.image,
-      userName: user?.name,
-      userEmail: user?.email,
-      facilityId: _id,
-      facilityName,
+      userId: session.user.id,
+      userName: session.user.name,
+      userEmail: session.user.email,
+      userImage: session.user.image,
+
+      facilityId: facility._id,
+      facilityName: facility.facilityName,
+      imageUrl: facility.imageUrl,
+
       bookingDate,
       timeSlot,
-      hours: Number(hours),
-      totalPrice: Number(totalPrice),
-      imageUrl,
+      hours,
+      totalPrice,
       status: "pending",
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(),
     };
 
-    if (!user) { router.push("/login"); return; }
-    setLoading(true); setError("");
     try {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
+      setLoading(true);
+      setError("");
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: {
+          "content-type": "application/json",
+        },
         body: JSON.stringify(bookingData),
       });
-      
-      if (!res.ok) throw new Error();
-      setSuccess(true); setBookingDate(""); setTimeSlot(""); setHours(1);
-    } catch { setError("Something went wrong. Please try again."); }
-    finally { setLoading(false); }
+
+      if (!res.ok) {
+        throw new Error("Booking failed");
+      }
+
+      setSuccess(true);
+      setBookingDate("");
+      setTimeSlot("");
+      setHours(1);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
- 
+
   if (success) {
     return (
-      <div style={{ background: "#fff", borderRadius: 24, padding: 56, textAlign: "center", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", border: "1px solid #f3f4f6" }}>
-        <div style={{ width: 80, height: 80, borderRadius: "50%", background: "#dcfce7", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
-          <svg width="36" height="36" fill="none" stroke="#22c55e" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
+      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl p-10 text-center">
+        <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
+          <Check className="text-green-600" size={42} />
         </div>
-        <h3 style={{ fontSize: 22, fontWeight: 800, color: "#111827", marginBottom: 8 }}>Booking Confirmed!</h3>
-        <p style={{ color: "#9ca3af", fontSize: 14, marginBottom: 36 }}>Your booking is pending approval.</p>
-        <button onClick={() => router.push("/my-bookings")}
-          style={{ width: "100%", padding: "15px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #22c55e, #15803d)", color: "#fff", fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 12, fontFamily: "inherit" }}>
-          View My Bookings
-        </button>
-        <button onClick={() => setSuccess(false)}
-          style={{ width: "100%", padding: "15px", borderRadius: 12, border: "2px solid #e5e7eb", background: "#fff", color: "#6b7280", fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
-          Book Again
-        </button>
+
+        <h2 className="text-3xl font-bold text-gray-900 mb-3">
+          Booking Confirmed!
+        </h2>
+
+        <p className="text-gray-500 mb-8">
+          Your booking request has been submitted successfully.
+        </p>
+
+        <div className="space-y-3">
+          <button
+            onClick={() => router.push("/my-bookings")}
+            className="w-full h-14 rounded-2xl bg-linear-to-r from-green-500 to-emerald-700 text-white font-semibold shadow-lg hover:scale-[1.02] transition-all duration-300"
+          >
+            View My Bookings
+          </button>
+
+          <button
+            onClick={() => setSuccess(false)}
+            className="w-full h-14 rounded-2xl border border-gray-200 hover:bg-gray-50 transition-all duration-300 font-semibold text-gray-700"
+          >
+            Book Again
+          </button>
+        </div>
       </div>
     );
   }
- 
-  const labelStyle = { display: "block", fontSize: 11, fontWeight: 700, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 };
-  const inputStyle = { width: "100%", background: "#fff", border: "1.5px solid #e5e7eb", borderRadius: 12, fontSize: 14, color: "#1f2937", outline: "none", fontFamily: "inherit", paddingTop: 14, paddingBottom: 14, boxSizing: "border-box" };
- 
+
   return (
-    /* Outer card — borderRadius 24 + overflow hidden clips hero image corners */
-    <div style={{ background: "#fff", borderRadius: 24, boxShadow: "0 2px 12px rgba(0,0,0,0.06)", border: "1px solid #f3f4f6", overflow: "hidden" }}>
- 
-      {/* ── Hero image ── */}
-      <div style={{ position: "relative", height: 220, background: "linear-gradient(135deg, #15803d, #22c55e)" }}>
-        {imageUrl?.trimStart() && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={imageUrl.trimStart()} alt={facilityName}
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block", position: "absolute", inset: 0 }}
-          />
-        )}
-        {/* Dark left overlay */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.38) 55%, transparent 100%)" }} />
-        {/* Price text */}
-        <div style={{ position: "absolute", bottom: 28, left: 32 }}>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 6 }}>
+    <div className="bg-white rounded-[30px] overflow-hidden border border-gray-100 shadow-xl">
+      {/* HERO IMAGE */}
+      <div className="relative h-65 overflow-hidden">
+        <Image
+          src={imageUrl}
+          alt={facilityName}
+          fill
+          className="object-cover"
+        />
+
+        <div className="absolute inset-0 bg-linear-to-r from-[#22C55E] to-[#16A34A]" />
+
+        <div className="absolute bottom-8 left-8 text-white">
+          <p className="uppercase tracking-[0.2em] text-xs font-semibold text-white/70 mb-3">
             Book This Facility
           </p>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-            <span style={{ color: "#fff", fontSize: 48, fontWeight: 900, lineHeight: 1 }}>${price_per_hour}</span>
-            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 16 }}>/ hour</span>
+
+          <div className="flex items-end gap-2">
+            <h2 className="text-5xl font-black">${price_per_hour}</h2>
+
+            <span className="text-white/70 mb-1">/ hour</span>
           </div>
         </div>
       </div>
- 
-      {/* ── Form body ── */}
-      <form onSubmit={handleSubmit} style={{ padding: "32px 32px 28px", display: "flex", flexDirection: "column", gap: 24 }}>
- 
+
+      {/* FORM */}
+      <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-7">
         {/* Facility Name */}
         <div>
-          <label style={labelStyle}>Facility Name</label>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", background: "#f9fafb", border: "1.5px solid #e5e7eb", borderRadius: 12 }}>
-            <svg style={{ color: "#9ca3af", flexShrink: 0 }} width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3M9 7h1m-1 4h1m4-4h1m-1 4h1M9 21v-3.5a.5.5 0 01.5-.5h5a.5.5 0 01.5.5V21"/>
-            </svg>
-            <span style={{ fontSize: 14, fontWeight: 600, color: "#1f2937" }}>{facilityName}</span>
+          <label className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-3">
+            Facility Name
+          </label>
+
+          <div className="h-14 rounded-2xl border border-gray-200 bg-gray-50 px-5 flex items-center gap-3">
+            <Building2 className="text-gray-400" size={18} />
+
+            <span className="font-semibold text-gray-800">{facilityName}</span>
           </div>
         </div>
- 
-        {/* Date + Time — 2 columns */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+
+        {/* Date + Time */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Date */}
           <div>
-            <label style={labelStyle}>Booking Date</label>
-            <div style={{ position: "relative" }}>
-              <svg style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#9ca3af", pointerEvents: "none" }} width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-              <input type="date" required min={today} value={bookingDate}
+            <label className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-3">
+              Booking Date
+            </label>
+
+            <div className="relative">
+              <Calendar
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                size={18}
+              />
+
+              <input
+                type="date"
+                required
+                min={today}
+                value={bookingDate}
                 onChange={(e) => setBookingDate(e.target.value)}
-                style={{ ...inputStyle, paddingLeft: 44, paddingRight: 12 }}
+                className="w-full h-14 rounded-2xl border border-gray-200 bg-white pl-12 pr-4 outline-none focus:border-green-500 transition-all"
               />
             </div>
           </div>
+
+          {/* Time */}
           <div>
-            <label style={labelStyle}>Time Slot</label>
-            <div style={{ position: "relative" }}>
-              <svg style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#9ca3af", pointerEvents: "none" }} width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-              </svg>
-              <select required value={timeSlot} onChange={(e) => setTimeSlot(e.target.value)}
-                style={{ ...inputStyle, paddingLeft: 44, paddingRight: 36, appearance: "none" }}>
-                <option value="">Select</option>
-                {TIME_SLOTS.map((s) => <option key={s} value={s}>{s}</option>)}
+            <label className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-3">
+              Time Slot
+            </label>
+
+            <div className="relative">
+              <Clock3
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                size={18}
+              />
+
+              <select
+                required
+                value={timeSlot}
+                onChange={(e) => setTimeSlot(e.target.value)}
+                className="w-full h-14 rounded-2xl border border-gray-200 bg-white pl-12 pr-4 outline-none focus:border-green-500 transition-all appearance-none"
+              >
+                <option value="">Select Time</option>
+
+                {TIME_SLOTS.map((slot) => (
+                  <option key={slot} value={slot}>
+                    {slot}
+                  </option>
+                ))}
               </select>
-              <svg style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", color: "#9ca3af", pointerEvents: "none" }} width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
             </div>
           </div>
         </div>
- 
-        {/* Duration pills */}
+
+        {/* Duration */}
         <div>
-          <label style={labelStyle}>Duration</label>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 10 }}>
+          <label className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">
+            Duration
+          </label>
+
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
             {HOURS_OPTIONS.map((h) => (
-              <button key={h} type="button" onClick={() => setHours(h)}
-                style={{
-                  padding: "12px 0", borderRadius: 12, fontSize: 14, fontWeight: 700,
-                  border: "2px solid", cursor: "pointer", transition: "all 0.15s", fontFamily: "inherit",
-                  ...(hours === h
-                    ? { background: "#fff", color: "#16a34a", borderColor: "#22c55e" }
-                    : { background: "#fff", color: "#6b7280", borderColor: "#e5e7eb" })
-                }}>
+              <button
+                key={h}
+                type="button"
+                onClick={() => setHours(h)}
+                className={`h-14 rounded-2xl font-bold transition-all duration-300 border-2 ${
+                  hours === h
+                    ? "border-green-500 bg-green-50 text-green-600"
+                    : "border-gray-200 text-gray-500 hover:border-green-300"
+                }`}
+              >
                 {h}h
               </button>
             ))}
           </div>
         </div>
- 
-        {/* Total price */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#f9fafb", border: "1.5px solid #e5e7eb", borderRadius: 16, padding: "18px 20px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: "#dcfce7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <svg width="18" height="18" fill="none" stroke="#22C55E" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"/><path strokeLinecap="round" d="M12 8v4l3 3"/>
-              </svg>
+
+        {/* PRICE */}
+        <div className="rounded-3xl border border-gray-200 bg-gray-50 p-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center">
+              <Clock3 className="text-green-600" size={22} />
             </div>
+
             <div>
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#111827", marginBottom: 3 }}>TOTAL PRICE</p>
-              <p style={{ fontSize: 12, color: "#9ca3af" }}>{hours}h × ${price_per_hour} / hour</p>
+              <p className="text-sm font-bold text-gray-900">TOTAL PRICE</p>
+
+              <p className="text-sm text-gray-500">
+                {hours}h × ${price_per_hour}/hour
+              </p>
             </div>
           </div>
-          <span style={{ fontSize: 32, fontWeight: 900, color: "#166534" }}>${totalPrice}</span>
+
+          <h2 className="text-4xl font-black text-green-700">${totalPrice}</h2>
         </div>
- 
+
+        {/* ERROR */}
         {error && (
-          <div style={{ background: "#fef2f2", border: "1px solid #fecaca", color: "#dc2626", fontSize: 13, borderRadius: 10, padding: "12px 16px" }}>
+          <div className="bg-red-50 border border-red-200 text-red-500 rounded-2xl px-5 py-4 text-sm">
             {error}
           </div>
         )}
- 
-        {/* Submit */}
-        <button type="submit" disabled={loading}
-          style={{
-            width: "100%", padding: "16px", borderRadius: 14, border: "none",
-            background: loading ? "#86efac" : "linear-gradient(135deg, #22c55e 0%, #15803d 100%)",
-            color: "#fff", fontSize: 16, fontWeight: 700,
-            cursor: loading ? "not-allowed" : "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
-            boxShadow: "0 6px 24px rgba(34,197,94,0.35)", fontFamily: "inherit",
-          }}>
-          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <rect x="3" y="4" width="18" height="18" rx="2"/>
-            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          {loading ? "Processing…" : user ? "Confirm Booking" : "Login to Book"}
+
+        {/* SUBMIT */}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full h-14 rounded-2xl text-white font-bold text-lg shadow-lg transition-all duration-300 ${
+            loading
+              ? "bg-green-300 cursor-not-allowed"
+              : "bg-linear-to-r from-green-500 to-emerald-700 hover:scale-[1.01]"
+          }`}
+        >
+          {loading
+            ? "Processing..."
+            : user
+              ? "Confirm Booking"
+              : "Login to Book"}
         </button>
- 
+
+        {/* LOGIN TEXT */}
         {!user && (
-          <p style={{ textAlign: "center", fontSize: 12, color: "#9ca3af", marginTop: -8 }}>
-            You must be logged in to make a booking.
+          <p className="text-center text-sm text-gray-400">
+            You must login before booking a facility.
           </p>
         )}
- 
-        {/* Trust badges */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+
+        {/* FEATURES */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
           {[
-            { emoji: "🛡️", text: "Secure booking process" },
-            { emoji: "⚡",  text: "Instant booking request" },
-            { emoji: "🎧", text: "Flexible cancellation support" },
-          ].map(({ emoji, text }) => (
-            <div key={text} style={{ background: "#f9fafb", border: "1.5px solid #f3f4f6", borderRadius: 14, padding: "14px 10px", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, textAlign: "center" }}>
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: "#dcfce7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17 }}>
-                {emoji}
+            {
+              icon: <ShieldCheck size={20} />,
+              title: "Secure Booking",
+            },
+            {
+              icon: <Zap size={20} />,
+              title: "Instant Request",
+            },
+            {
+              icon: <Headphones size={20} />,
+              title: "24/7 Support",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="border border-gray-100 rounded-2xl p-5 bg-gray-50 flex flex-col items-center text-center"
+            >
+              <div className="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center mb-3">
+                {item.icon}
               </div>
-              <p style={{ fontSize: 11, color: "#374151", fontWeight: 500, lineHeight: 1.4 }}>{text}</p>
+
+              <p className="text-sm font-semibold text-gray-700">
+                {item.title}
+              </p>
             </div>
           ))}
         </div>
- 
       </form>
     </div>
   );
