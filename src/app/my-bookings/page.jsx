@@ -1,7 +1,7 @@
 import { BookingCancelAlert } from "@/components/BookingCancelAlert";
 import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";
-import { Calendar, CheckCircle, Eye, MapPin, Ticket } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,7 +78,7 @@ const MyBookingPage = async () => {
           {bookings.map((booking) => (
             <div
               key={booking._id}
-              className="grid grid-cols-1 md:grid-cols-12 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200/80 min-h-[180px]"
+              className="grid grid-cols-1 md:grid-cols-12 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200/80 min-h-45"
             >
               {/* Left Image Section - Locked to 3/12 of the card width on desktop */}
               <div className="relative w-full h-48 md:h-full md:col-span-3 min-h-45 bg-gray-100 shrink-0">
