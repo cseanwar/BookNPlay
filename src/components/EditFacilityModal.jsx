@@ -166,10 +166,10 @@ export function EditFacilityModal({ facility }) {
                             </ListBox.Item>
 
                             <ListBox.Item
-                              id="Basketball"
-                              textValue="Basketball"
+                              id="TableTennis"
+                              textValue="Table Tennis"
                             >
-                              Basketball
+                              Table Tennis
                             </ListBox.Item>
                           </ListBox>
                         </Select.Popover>
